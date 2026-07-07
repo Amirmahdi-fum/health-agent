@@ -1,0 +1,423 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@import "katex/dist/katex.min.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.129 0.042 264.695);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.129 0.042 264.695);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.129 0.042 264.695);
+  --primary: oklch(0.208 0.042 265.755);
+  --primary-foreground: oklch(0.984 0.003 247.858);
+  --secondary: oklch(0.968 0.007 247.896);
+  --secondary-foreground: oklch(0.208 0.042 265.755);
+  --muted: oklch(0.968 0.007 247.896);
+  --muted-foreground: oklch(0.554 0.046 257.417);
+  --accent: oklch(0.968 0.007 247.896);
+  --accent-foreground: oklch(0.208 0.042 265.755);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.929 0.013 255.508);
+  --input: oklch(0.929 0.013 255.508);
+  --ring: oklch(0.704 0.04 256.788);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+.dark {
+  --background: oklch(0.07 0.005 260);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.09 0.005 260);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.09 0.005 260);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.07 0.005 260);
+  --secondary: oklch(0.15 0.01 260);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.15 0.01 260);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.15 0.01 260);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+
+/* ==================== AURA OS THEME ==================== */
+:root {
+  --aura-bg: #07080a;
+  --aura-surface: rgba(255, 255, 255, 0.03);
+  --aura-surface-2: rgba(255, 255, 255, 0.05);
+  --aura-border: rgba(255, 255, 255, 0.05);
+  --aura-border-strong: rgba(255, 255, 255, 0.12);
+  --aura-fg: #f4f4f5;
+  --aura-fg-muted: #b4b4be;
+  --aura-fg-dim: #8a8a94;
+  --aura-indigo: #5e6ad2;
+  --aura-indigo-glow: rgba(94, 106, 210, 0.35);
+  --aura-emerald: #10b981;
+  --aura-emerald-glow: rgba(16, 185, 129, 0.35);
+  --aura-danger: #ef4444;
+  --font-sans-en: "Century Gothic", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans-fa: "Vazirmatn", "Mazandaran", "B Yekan", "Mj_Matin", system-ui, sans-serif;
+  --font-mono: "Cascadia Mono", "Geist Mono", ui-monospace, "JetBrains Mono", monospace;
+}
+
+/* Force English numerals everywhere even in RTL mode */
+@font-face {
+  font-family: "EnNum";
+  src: local("Inter"), local("Segoe UI"), local("Arial");
+  unicode-range:
+    U+0030-0039, U+06F0-06F9, U+0660-0669; /* ASCII digits, Persian digits, Arabic digits */
+}
+
+html,
+body {
+  background: var(--aura-bg);
+  color: var(--aura-fg);
+}
+body {
+  font-family: "EnNum", var(--font-sans-en);
+}
+html[dir="rtl"] body {
+  font-family: "EnNum", var(--font-sans-fa);
+  line-height: 1.7;
+}
+html[dir="rtl"] .mono,
+html[dir="rtl"] code,
+html[dir="rtl"] pre,
+html[dir="rtl"] .katex,
+html[dir="rtl"] .katex-container {
+  font-family: var(--font-mono);
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+
+/* Mobile native feel — prevent bounce pull-to-refresh, lock viewport height */
+html,
+body {
+  overscroll-behavior-y: none;
+}
+body {
+  min-height: 100dvh;
+}
+
+/* Safe-area helpers for fixed chrome */
+@utility safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+@utility safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@utility safe-x {
+  padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
+}
+
+/* Route transition fade (200ms) */
+.route-fade {
+  animation: aura-fade 200ms ease-out both;
+}
+@keyframes aura-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(94, 106, 210, 0.1), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(16, 185, 129, 0.06), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@utility glass {
+  background: var(--aura-surface);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--aura-border);
+  border-radius: 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 10px 40px rgba(0, 0, 0, 0.45);
+}
+@utility glass-2 {
+  background: var(--aura-surface-2);
+  backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid var(--aura-border-strong);
+  border-radius: 20px;
+}
+@utility mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+@utility glow-border {
+  position: relative;
+  border-radius: 20px;
+}
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--angle, 0deg), #5e6ad2, #10b981, #5e6ad2);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: aura-spin 6s linear infinite;
+  pointer-events: none;
+}
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes aura-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+@keyframes aura-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.blink-cursor::after {
+  content: "▊";
+  margin-inline-start: 2px;
+  animation: aura-blink 1s steps(1) infinite;
+  color: var(--aura-emerald);
+}
+
+.katex-container {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Code + math blocks stay strictly LTR even under RTL layouts */
+.prose pre,
+.prose code,
+pre code {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: isolate;
+  font-family: var(--font-mono);
+}
+.prose pre {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--aura-border);
+  border-radius: 12px;
+}
+
+/* Radial glow utilities — Emerald + Indigo accents at low opacity */
+@utility glow-indigo {
+  position: relative;
+  isolation: isolate;
+}
+.glow-indigo::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(ellipse 60% 50% at 30% 20%, rgba(94, 106, 210, 0.1), transparent 60%);
+  z-index: -1;
+  pointer-events: none;
+}
+@utility glow-emerald {
+  position: relative;
+  isolation: isolate;
+}
+.glow-emerald::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(ellipse 60% 50% at 70% 80%, rgba(16, 185, 129, 0.1), transparent 60%);
+  z-index: -1;
+  pointer-events: none;
+}
+@utility glow-dual {
+  position: relative;
+  isolation: isolate;
+}
+.glow-dual::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(ellipse 50% 40% at 20% 10%, rgba(94, 106, 210, 0.1), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 90%, rgba(16, 185, 129, 0.1), transparent 60%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Global tactile press — every clickable element gets a subtle scale */
+button,
+a,
+[role="button"] {
+  transition: transform 120ms ease;
+}
+button:active,
+a:active,
+[role="button"]:active {
+  transform: scale(0.98);
+}
+
+/* Assistant message entrance */
+@keyframes aura-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.msg-in {
+  animation: aura-msg-in 240ms ease-out both;
+}
+
+@utility input {
+  background: var(--aura-surface);
+  border: 1px solid var(--aura-border);
+  border-radius: 12px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--aura-fg);
+  outline: none;
+  transition: border-color 120ms;
+  width: 100%;
+}
+.input:focus {
+  border-color: rgba(94, 106, 210, 0.6);
+}
+
+/* scrollbar */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
