@@ -41,6 +41,15 @@ let html = readFileSync(templatePath, "utf-8");
 html = html.replace(/\{\{INDEX_JS\}\}/g, indexJs.name);
 html = html.replace(/\{\{STYLES_CSS\}\}/g, cssFile || "");
 
+// Fix dev client entry references inside hydration manifest/scripts
+// The hydration template has src:"/health-agent/@id/virtual:tanstack-start-dev-client-entry"
+// Replace ALL occurrences with the production JS path
+const prodJsPath = `${base}assets/${indexJs.name}`;
+const prodCssPath = cssFile ? `${base}assets/${cssFile}` : "";
+html = html.replace(/\/health-agent\/@id\/virtual:tanstack-start-dev-client-entry/g, prodJsPath);
+// Remove dev-only stylesheet references in hydration manifest
+html = html.replace(/\/health-agent\/@tanstack-start\/styles\.css[^"]*/g, prodCssPath);
+
 // Disable user display of console.error output.
 // --------------------------------------------------------------
 // 3. Write final HTML
