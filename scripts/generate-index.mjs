@@ -54,6 +54,7 @@ const html = `<!DOCTYPE html>
 ${cssLinks}
   </head>
   <body class="min-h-dvh bg-background font-sans text-foreground antialiased">
+    <div id="root"></div>
     <script type="module" src="${base}assets/${indexJs.name}"></script>
   </body>
 </html>`;
