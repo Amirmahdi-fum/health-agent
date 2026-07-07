@@ -9,7 +9,6 @@ import { Settings as SettingsIcon, Cloud, Smartphone, Bot } from "lucide-react";
 import { useSession } from "@/hooks/use-session";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { lovable } from "@/integrations/lovable";
 import { useState } from "react";
 
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
@@ -28,11 +27,12 @@ function SettingsPage() {
 
   const handleGoogleLogin = async () => {
     try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: `${window.location.origin}/health-agent/` },
       });
-      if (result.error) {
-        toast.error(result.error.message);
+      if (error) {
+        toast.error(error.message);
       }
     } catch (e) {
       toast.error((e as Error).message ?? "Failed to sign in");
