@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && node scripts/generate-index.mjs",
     "clean": "rm -rf dist .vite .tanstack node_modules/.vite node_modules/.cache",
     "build:dev": "bun run clean && vite build --mode development",
     "build:clean": "bun run build:dev",
