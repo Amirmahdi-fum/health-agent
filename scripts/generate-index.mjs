@@ -58,9 +58,11 @@ ${cssLinks}
   </body>
 </html>`;
 
+// .nojekyll tells GitHub Pages to skip Jekyll and serve files as-is
+writeFileSync(join(outDir, ".nojekyll"), "");
 writeFileSync(join(outDir, "index.html"), html);
 writeFileSync(join(outDir, "404.html"), html);
-console.log(`✅ Generated index.html and 404.html`);
+console.log(`✅ Generated index.html, 404.html, .nojekyll`);
 console.log(`   entry: ${base}assets/${indexJs.name}`);
 console.log(`   css:   ${cssFiles.length} file(s)`);
 console.log(`   base:  ${base}`);
