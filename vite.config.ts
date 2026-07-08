@@ -35,8 +35,16 @@ export default defineConfig({
           start_url: `${process.env.VITE_BASE_PATH || "/"}?source=pwa`,
           scope: process.env.VITE_BASE_PATH || "/",
           icons: [
-            { src: `${process.env.VITE_BASE_PATH || ""}favicon.svg`, sizes: "any", type: "image/svg+xml" },
-            { src: `${process.env.VITE_BASE_PATH || ""}apple-touch-icon.png`, sizes: "180x180", type: "image/png" },
+            {
+              src: `${process.env.VITE_BASE_PATH || ""}favicon.svg`,
+              sizes: "any",
+              type: "image/svg+xml",
+            },
+            {
+              src: `${process.env.VITE_BASE_PATH || ""}apple-touch-icon.png`,
+              sizes: "180x180",
+              type: "image/png",
+            },
           ],
         },
         workbox: {

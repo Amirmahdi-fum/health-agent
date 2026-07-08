@@ -71,9 +71,7 @@ export function SyncHub() {
   const profile = useProfile((s) => s.profile);
   const localLogs = useLogs((s) => s.logs);
   const [spinning, setSpinning] = useState(false);
-  const [lastStatus, setLastStatus] = useState<"idle" | "success" | "error">(
-    "idle"
-  );
+  const [lastStatus, setLastStatus] = useState<"idle" | "success" | "error">("idle");
   const statusTimer = useRef<number | null>(null);
 
   const deviceType = getDeviceType();
@@ -136,7 +134,7 @@ export function SyncHub() {
                 log_date,
               })),
             },
-          })
+          }),
         );
         if (res?.inserted > 0) {
           useLogs.getState().clearEntries();
@@ -261,7 +259,9 @@ export function SyncHub() {
         {lastSync && (
           <div className="text-xs text-[color:var(--aura-fg-muted)] flex items-center gap-1.5">
             <Clock className="h-3 w-3" />
-            {lang === "fa" ? `آخرین سینک: ${relTime(lastSync, "fa")}` : `Last sync: ${relTime(lastSync, "en")}`}
+            {lang === "fa"
+              ? `آخرین سینک: ${relTime(lastSync, "fa")}`
+              : `Last sync: ${relTime(lastSync, "en")}`}
           </div>
         )}
       </div>

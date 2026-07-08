@@ -63,7 +63,13 @@ export function ChatPanel() {
 
   const [streaming, setStreaming] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    // Sidebar closed by default on mobile, open on desktop
+    if (typeof window !== "undefined") {
+      return window.innerWidth >= 1024;
+    }
+    return true;
+  });
   const [contextMenuId, setContextMenuId] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -218,6 +224,10 @@ export function ChatPanel() {
   const handleSelectThread = (id: string) => {
     stop();
     selectThread(id);
+    // Auto-close sidebar on mobile after selecting a thread
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setSidebarOpen(false);
+    }
   };
 
   // Advanced, randomized conversation starters based on the new proactive system prompt
@@ -334,12 +344,23 @@ export function ChatPanel() {
   const firstName = (profile.name || "").split(" ")[0];
 
   return (
-    <div className="flex gap-0 w-full h-[calc(100vh-10rem)] lg:h-[calc(100vh-8rem)]">
+    <div className="flex gap-0 w-full h-full lg:h-[calc(100vh-10rem)]">
+      {/* Mobile sidebar overlay backdrop */}
+      {sidebarOpen && (
+        <div
+          className="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       {/* Sidebar — Threads list (ChatGPT-style) */}
+      {/* On mobile: fixed overlay that slides in. On desktop: static flex column */}
       <aside
-        className={`${
-          sidebarOpen ? "w-72" : "w-0"
-        } transition-all duration-300 ease-out overflow-hidden flex flex-col bg-black/20 backdrop-blur-2xl border-r border-white/5`}
+        className={`
+          ${sidebarOpen ? "w-72" : "w-0"}
+          transition-all duration-300 ease-out overflow-hidden flex flex-col bg-black/20 backdrop-blur-2xl border-r border-white/5
+          lg:relative lg:z-auto
+          fixed inset-y-0 start-0 z-50 fill-mode-both
+        `}
       >
         <div className="p-3 flex flex-col gap-2 border-b border-white/5">
           <div className="flex items-center justify-between">

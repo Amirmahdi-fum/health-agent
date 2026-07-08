@@ -23,7 +23,9 @@ export const Route = createFileRoute("/_authenticated/settings")({
 function SettingsPage() {
   const { t, lang } = useT();
   const { user } = useSession();
-  const [activeTab, setActiveTab] = useState<"account" | "ai" | "prefs" | "notifs" | "sync">("account");
+  const [activeTab, setActiveTab] = useState<"account" | "ai" | "prefs" | "notifs" | "sync">(
+    "account",
+  );
 
   const handleGoogleLogin = async () => {
     try {
@@ -222,6 +224,112 @@ function SettingsPage() {
                               {lang === "fa"
                                 ? "از این پس با هر دستگاه دیگری وارد شوید، گزارش‌ها و پیشرفت‌هایتان همیشه در دسترس خواهند بود."
                                 : "Log in from any device moving forward to instantly access your logs, streaks, and progress."}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Admin setup guide — only shows if OAuth not yet configured */}
+                      <div className="mt-4 p-4 rounded-xl bg-amber-500/[0.03] border border-amber-500/10">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400/80">
+                            {lang === "fa"
+                              ? "تنظیمات اولیه (فقط برای مدیر)"
+                              : "Initial Setup (Admin Only)"}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-[color:var(--aura-fg-muted)] leading-relaxed mb-3">
+                          {lang === "fa"
+                            ? "اگر ورود با گوگل کار نکرد، احتمالاً کلیدهای OAuth در Supabase تنظیم نشده‌اند. مراحل زیر را دنبال کنید:"
+                            : "If Google sign-in doesn't work, OAuth credentials may not be configured yet. Follow these steps:"}
+                        </p>
+                        <div className="space-y-2.5 text-[11px]">
+                          {/* Step A */}
+                          <div className="flex gap-2.5 p-2.5 rounded-lg bg-white/[0.02] border border-white/5">
+                            <span className="shrink-0 font-bold text-amber-400 font-mono">A</span>
+                            <div className="text-[color:var(--aura-fg)] leading-relaxed">
+                              <span className="font-semibold text-white">
+                                {lang === "fa" ? "Google Cloud Console" : "Google Cloud Console"}:
+                              </span>{" "}
+                              {lang === "fa" ? "به" : "Go to"}{" "}
+                              <code className="px-1 py-0.5 rounded bg-white/10 text-amber-300 font-mono text-[10px]">
+                                console.cloud.google.com
+                              </code>{" "}
+                              →{" "}
+                              {lang === "fa"
+                                ? "ایجاد پروژه جدید یا انتخاب پروژه موجود → APIs & Services → Credentials → Create Credentials → OAuth client ID"
+                                : "Create or select a project → APIs & Services → Credentials → Create Credentials → OAuth client ID"}
+                            </div>
+                          </div>
+                          {/* Step B */}
+                          <div className="flex gap-2.5 p-2.5 rounded-lg bg-white/[0.02] border border-white/5">
+                            <span className="shrink-0 font-bold text-amber-400 font-mono">B</span>
+                            <div className="text-[color:var(--aura-fg)] leading-relaxed">
+                              {lang === "fa"
+                                ? "نوع اپلیکیشن را Web Application انتخاب کنید. در بخش"
+                                : "Select Web Application as type. In the"}{" "}
+                              <span className="font-semibold text-white">
+                                {lang === "fa"
+                                  ? "Authorized redirect URIs"
+                                  : "Authorized redirect URIs"}
+                              </span>{" "}
+                              {lang === "fa" ? "این آدرس را اضافه کنید:" : "add this URL:"}
+                              <br />
+                              <code className="mt-1 block px-2 py-1 rounded bg-white/10 text-emerald-300 font-mono text-[10px] break-all select-all">
+                                https://pbiegxywqgeezdqryfvx.supabase.co/auth/v1/callback
+                              </code>
+                            </div>
+                          </div>
+                          {/* Step C */}
+                          <div className="flex gap-2.5 p-2.5 rounded-lg bg-white/[0.02] border border-white/5">
+                            <span className="shrink-0 font-bold text-amber-400 font-mono">C</span>
+                            <div className="text-[color:var(--aura-fg)] leading-relaxed">
+                              {lang === "fa"
+                                ? "ب پس از ساخت، دو مقدار دریافت می‌کنید:"
+                                : "After creation you'll get two values:"}
+                              <br />
+                              <span className="mt-1 inline-flex flex-wrap gap-2">
+                                <span className="px-1.5 py-0.5 rounded bg-white/10 text-cyan-300 font-mono text-[10px]">
+                                  Client ID
+                                </span>
+                                <span className="px-1.5 py-0.5 rounded bg-white/10 text-pink-300 font-mono text-[10px]">
+                                  Client Secret
+                                </span>
+                              </span>
+                              {lang === "fa" ? " — هر دو را کپی کنید." : " — copy both of them."}
+                            </div>
+                          </div>
+                          {/* Step D */}
+                          <div className="flex gap-2.5 p-2.5 rounded-lg bg-white/[0.02] border border-white/5">
+                            <span className="shrink-0 font-bold text-amber-400 font-mono">D</span>
+                            <div className="text-[color:var(--aura-fg)] leading-relaxed">
+                              <span className="font-semibold text-white">
+                                {lang === "fa" ? "داشبورد Supabase" : "Supabase Dashboard"}:
+                              </span>{" "}
+                              {lang === "fa" ? "به" : "Go to"}{" "}
+                              <code className="px-1 py-0.5 rounded bg-white/10 text-amber-300 font-mono text-[10px]">
+                                supabase.com/dashboard
+                              </code>{" "}
+                              →{" "}
+                              {lang === "fa"
+                                ? "پروژه pbiegxywqgeezdqryfvx → Authentication → Providers → Google را باز کنید → Client ID و Client Secret را در فیلدهای مربوطه Paste کنید → Save"
+                                : "Open project pbiegxywqgeezdqryfvx → Authentication → Providers → Google → paste the Client ID and Client Secret into their fields → Save"}
+                            </div>
+                          </div>
+                          {/* Step E */}
+                          <div className="flex gap-2.5 p-2.5 rounded-lg bg-white/[0.02] border border-white/5">
+                            <span className="shrink-0 font-bold text-amber-400 font-mono">E</span>
+                            <div className="text-[color:var(--aura-fg)] leading-relaxed">
+                              <span className="font-semibold text-white">
+                                {lang === "fa" ? "اضافه کردن Redirect URL" : "Add Redirect URL"}:
+                              </span>{" "}
+                              {lang === "fa"
+                                ? "در همان داشبورد، به Authentication → URL Configuration بروید و این آدرس را به لیست Redirect URLs اضافه کنید:"
+                                : "In the same dashboard, go to Authentication → URL Configuration and add this URL to the Redirect URLs list:"}
+                              <br />
+                              <code className="mt-1 block px-2 py-1 rounded bg-white/10 text-emerald-300 font-mono text-[10px] break-all select-all">
+                                https://amirmahdifarjadi.me/health-agent/
+                              </code>
                             </div>
                           </div>
                         </div>

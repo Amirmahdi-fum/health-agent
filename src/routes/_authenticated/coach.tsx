@@ -11,7 +11,7 @@ function CoachPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="h-[calc(100vh-2rem)] lg:h-screen w-full flex flex-col overflow-hidden"
+      className="h-[calc(100dvh-13rem-env(safe-area-inset-bottom,0px))] lg:h-[calc(100vh-6rem)] w-full flex flex-col overflow-hidden"
     >
       <ChatPanel />
     </motion.div>
