@@ -6,6 +6,7 @@ import { getProfile, upsertProfile } from "@/lib/profile.functions";
 import { useProfile } from "@/stores/profile";
 import { useLogs } from "@/stores/logs";
 import { useSession } from "@/hooks/use-session";
+import { supabase } from "@/integrations/supabase/client";
 import { useT } from "@/lib/i18n";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -20,6 +21,7 @@ import {
   Zap,
   Shield,
   ArrowUpDown,
+  LogIn,
 } from "lucide-react";
 
 function relTime(dateIso: string | null, lang: "en" | "fa"): string {
@@ -180,15 +182,34 @@ export function SyncHub() {
     };
   }, []);
 
+  const handleSignIn = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: `${window.location.origin}${import.meta.env.BASE_URL}` },
+      });
+      if (error) toast.error(error.message);
+    } catch (e) {
+      toast.error((e as Error).message ?? "Failed to sign in");
+    }
+  };
+
   if (!user) {
     return (
-      <div className="text-center py-8">
+      <div className="text-center py-8 space-y-4">
         <CloudOff className="h-12 w-12 mx-auto text-white/20 mb-3" />
         <p className="text-sm text-[color:var(--aura-fg-muted)]">
           {lang === "fa"
             ? "برای استفاده از سینک، ابتدا وارد شوید."
             : "Sign in to enable cloud sync."}
         </p>
+        <button
+          onClick={handleSignIn}
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-sm font-medium transition-colors"
+        >
+          <LogIn className="h-4 w-4" />
+          {lang === "fa" ? "ورود با گوگل" : "Sign in with Google"}
+        </button>
       </div>
     );
   }

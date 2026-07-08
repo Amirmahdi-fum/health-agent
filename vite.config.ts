@@ -25,7 +25,20 @@ export default defineConfig({
         // Place SW in the Nitro output directory so the deployed PWA actually finds it
         outDir: ".output/public",
         injectManifest: undefined as any,
-        manifest: false,
+        manifest: {
+          name: "Health Agent",
+          short_name: "HealthAgent",
+          description: "Your AI-Powered Health OS",
+          theme_color: "#07080a",
+          background_color: "#07080a",
+          display: "standalone",
+          start_url: `${process.env.VITE_BASE_PATH || "/"}?source=pwa`,
+          scope: process.env.VITE_BASE_PATH || "/",
+          icons: [
+            { src: `${process.env.VITE_BASE_PATH || ""}favicon.svg`, sizes: "any", type: "image/svg+xml" },
+            { src: `${process.env.VITE_BASE_PATH || ""}apple-touch-icon.png`, sizes: "180x180", type: "image/png" },
+          ],
+        },
         workbox: {
           navigateFallback: "/",
           navigateFallbackDenylist: [/^\/~oauth/, /^\/api\//, /^\/_serverFn\//],
