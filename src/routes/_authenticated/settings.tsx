@@ -247,18 +247,30 @@ function SettingsPage() {
                           {/* Step A */}
                           <div className="flex gap-2.5 p-2.5 rounded-lg bg-white/[0.02] border border-white/5">
                             <span className="shrink-0 font-bold text-amber-400 font-mono">A</span>
-                            <div className="text-[color:var(--aura-fg)] leading-relaxed">
-                              <span className="font-semibold text-white">
-                                {lang === "fa" ? "Google Cloud Console" : "Google Cloud Console"}:
-                              </span>{" "}
-                              {lang === "fa" ? "به" : "Go to"}{" "}
-                              <code className="px-1 py-0.5 rounded bg-white/10 text-amber-300 font-mono text-[10px]">
-                                console.cloud.google.com
-                              </code>{" "}
-                              →{" "}
-                              {lang === "fa"
-                                ? "ایجاد پروژه جدید یا انتخاب پروژه موجود → APIs & Services → Credentials → Create Credentials → OAuth client ID"
-                                : "Create or select a project → APIs & Services → Credentials → Create Credentials → OAuth client ID"}
+                            <div className="text-[color:var(--aura-fg)] leading-relaxed space-y-1.5">
+                              <div>
+                                <span className="font-semibold text-white">
+                                  {lang === "fa" ? "Google Cloud Console" : "Google Cloud Console"}:
+                                </span>{" "}
+                                {lang === "fa" ? "به" : "Go to"}{" "}
+                                <code className="px-1 py-0.5 rounded bg-white/10 text-amber-300 font-mono text-[10px]">
+                                  console.cloud.google.com
+                                </code>{" "}
+                                →{" "}
+                                {lang === "fa"
+                                  ? "ایجاد پروژه جدید یا انتخاب پروژه موجود"
+                                  : "Create or select a project"}
+                              </div>
+                              <div className="pl-3 border-s border-white/10 text-[color:var(--aura-fg-muted)]">
+                                {lang === "fa"
+                                  ? "⚠️ ابتدا باید OAuth Consent Screen را تنظیم کنید: APIs & Services → OAuth consent screen → User Type: External → Fill in app name, support email, developer email → Save & Continue"
+                                  : "⚠️ First configure OAuth Consent Screen: APIs & Services → OAuth consent screen → User Type: External → Fill app name, support email, developer email → Save & Continue"}
+                              </div>
+                              <div>
+                                {lang === "fa"
+                                  ? "سپس: APIs & Services → Credentials → Create Credentials → OAuth client ID"
+                                  : "Then: APIs & Services → Credentials → Create Credentials → OAuth client ID"}
+                              </div>
                             </div>
                           </div>
                           {/* Step B */}
@@ -330,6 +342,30 @@ function SettingsPage() {
                               <code className="mt-1 block px-2 py-1 rounded bg-white/10 text-emerald-300 font-mono text-[10px] break-all select-all">
                                 https://amirmahdifarjadi.me/health-agent/
                               </code>
+                            </div>
+                          </div>
+                          {/* Step F — Troubleshooting */}
+                          <div className="flex gap-2.5 p-2.5 rounded-lg bg-red-500/[0.04] border border-red-500/15">
+                            <span className="shrink-0 font-bold text-red-400 font-mono">F</span>
+                            <div className="text-[color:var(--aura-fg)] leading-relaxed space-y-1">
+                              <div className="font-semibold text-white">
+                                {lang === "fa" ? "عیب‌یابی" : "Troubleshooting"}:
+                              </div>
+                              <div className="text-[color:var(--aura-fg-muted)]">
+                                {lang === "fa"
+                                  ? "• خطای 400 redirect_uri_mismatch → URL کال‌بک در Google Cloud اعمال نشده. ۵ دقیقه صبر کنید و دوباره امتحان کنید."
+                                  : "• Error 400 redirect_uri_mismatch → callback URL not propagated in Google Cloud. Wait 5 mins and retry."}
+                              </div>
+                              <div className="text-[color:var(--aura-fg-muted)]">
+                                {lang === "fa"
+                                  ? "• خطای Unsupported provider → Supabase Dashboard → Google provider را فعال کنید و Client ID/Secret را وارد کنید."
+                                  : "• Error Unsupported provider → Enable Google provider in Supabase Dashboard and enter Client ID/Secret."}
+                              </div>
+                              <div className="text-[color:var(--aura-fg-muted)]">
+                                {lang === "fa"
+                                  ? "• خطای Email not confirmed → Google consent screen Publishing status را روی Testing بگذارید و ایمیل خود را در Test users اضافه کنید."
+                                  : "• Error Email not confirmed → Set Google consent screen Publishing status to Testing and add your email to Test users."}
+                              </div>
                             </div>
                           </div>
                         </div>
